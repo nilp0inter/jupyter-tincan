@@ -22,7 +22,7 @@ Available kernels:
 Now let's put the python3 kernel into TinCan mode:
 
 ```console
-$ jupyter-tincan create-kernel /usr/local/share/jupyter/kernels/python3 > tincan-python3.json
+$ jupyter tincan create-kernel /usr/local/share/jupyter/kernels/python3 > tincan-python3.json
 ```
 
 This will create a new kernel spec file called `tincan-python3.json` in the current directory. You can now install this kernel spec into Jupyter:

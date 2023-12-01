@@ -17,3 +17,6 @@ beautifulsoup4 = "^4.12.2"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+jupyter-tincan = "jupyter_tincan.cli:main"
