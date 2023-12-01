@@ -1,0 +1,13 @@
+{
+ "argv": [
+  "python",
+  "jupyterproxy.py",
+  "-f",
+  "{connection_file}"
+ ],
+ "display_name": "Wrapped Python 3 (ipykernel)",
+ "language": "python",
+ "metadata": {
+  "debugger": true
+ }
+}
