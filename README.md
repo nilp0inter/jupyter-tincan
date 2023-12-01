@@ -7,6 +7,29 @@ In the realm of data science and software development, safeguarding sensitive in
 
 Jupyter-TinCan changes the game by offering a simpler, more intuitive solution. It transforms sensitive text in notebook cells into images, maintaining data security while enhancing user experience. No more cumbersome setups or workflow disruptions – just smooth, secure, and efficient development.
 
+## Installation
+
+## Usage
+
+You can configure any pre-existing Jupyter kernel to use Jupyter-TinCan. First let's list the kernels we have installed:
+
+```console
+$ jupyter kernelspec list
+Available kernels:
+  python3    /usr/local/share/jupyter/kernels/python3
+```
+
+Now let's put the python3 kernel into TinCan mode:
+
+```console
+$ jupyter-tincan create-kernel /usr/local/share/jupyter/kernels/python3 > tincan-python3.json
+```
+
+This will create a new kernel spec file called `tincan-python3.json` in the current directory. You can now install this kernel spec into Jupyter:
+
+```console
+$ jupyter kernelspec install tincan-python3.json --name tincan-python3
+```
 
 ### Acknowledgments
 
