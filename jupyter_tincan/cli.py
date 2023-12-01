@@ -1,8 +1,10 @@
+from tempfile import NamedTemporaryFile
 import argparse
 import json
 import socket
 import subprocess
 import sys
+from pathlib import Path
 
 from .proxy import JupiterTinCanProxy
 
@@ -11,23 +13,51 @@ def find_free_port():
         s.bind(('', 0))
         return s.getsockname()[1]
 
-def read_connection_file(file_path):
-    with open(file_path, 'r') as file:
-        return json.load(file)
+def launch_inner_kernel(argv, new_connection_file):
+    print(argv)
+    argv[argv.index("{inner_kernel_connection_file}")] = new_connection_file
+    return subprocess.Popen(argv, stdout=sys.stdout, stderr=sys.stderr)
 
-def write_connection_file(data, file_path):
-    with open(file_path, 'w') as file:
-        json.dump(data, file)
-
-def launch_inner_kernel(new_connection_file):
-    return subprocess.Popen(["python", "-m", "ipykernel_launcher", "-f", new_connection_file], stdout=sys.stdout, stderr=sys.stderr)
 
 def main():
-    parser = argparse.ArgumentParser(description="Jupyter Kernel Proxy Setup")
-    parser.add_argument("-f", "--connection-file", required=True, help="Path to the Jupyter kernel connection file")
+    parser = argparse.ArgumentParser(description="Jupyter-TinCan Kernel Proxy")
+    subparsers = parser.add_subparsers(dest='command', required=True)
+
+    # Subcommand "create-kernel"
+    create_kernel_parser = subparsers.add_parser('create-kernel', help='Create a new kernel configuration')
+    create_kernel_parser.add_argument('config_folder', type=str, help='Path to the folder for the kernel configuration')
+
+    # Subcommand "run"
+    run_parser = subparsers.add_parser('run', help='Run the Jupyter-TinCan kernel proxy')
+    run_parser.add_argument("-f", "--connection-file", required=True, help="Path to the Jupyter kernel connection file")
+    run_parser.add_argument("--argv", type=json.loads, help="JSON-encoded array of strings for additional arguments")
+
+    # Parse arguments
     args = parser.parse_args()
 
-    original_connection_data = read_connection_file(args.connection_file)
+    if args.command == 'create-kernel':
+        # Handle create-kernel command
+        create_kernel(args.config_folder)
+    elif args.command == 'run':
+        # Handle run command
+        run_kernel(args.connection_file, args.argv)
+
+def create_kernel(config_folder):
+    # Implement the logic for creating a new kernel configuration
+    with open(str(Path(config_folder) / "kernel.json"), 'r') as file:
+        kernel_config = json.load(file)
+    new_kernel_config = kernel_config.copy()
+    kernel_config["argv"][kernel_config["argv"].index("{connection_file}")] = "{inner_kernel_connection_file}"
+    new_kernel_config["argv"] = ["python", "-m", "jupyter_tincan", "run", "-f", "{connection_file}", "--argv", json.dumps(kernel_config["argv"])]
+    new_kernel_config["display_name"] = "🥫 " + kernel_config["display_name"]
+    json.dump(new_kernel_config, sys.stdout, indent=2)
+
+
+def run_kernel(connection_file, argv):
+    # Implement the logic for running the kernel proxy
+
+    with open(connection_file, 'r') as file:
+        original_connection_data = json.load(file)
     new_connection_data = original_connection_data.copy()
 
     # Generate new ports for the inner kernel
@@ -41,20 +71,19 @@ def main():
     assert len(ports) == 10, "Ports are not unique"
 
     # Write the new connection file for the inner kernel
-    new_connection_file = str(Path(args.connection_file).parent / "inner_kernel.json")
-    write_connection_file(new_connection_data, new_connection_file)
+    with NamedTemporaryFile(mode='w', suffix=".json", prefix="jupyter_tincan_") as file:
+        json.dump(new_connection_data, file)
+        file.flush()
 
-    # Launch the inner kernel
-    inner_kernel_process = launch_inner_kernel(new_connection_file)
+        # Launch the inner kernel
+        inner_kernel_process = launch_inner_kernel(argv, file.name)
 
-    # Output frontend and kernel ports information
-    frontend_ports = {k: original_connection_data[k] for k in new_connection_data if '_port' in k}
-    kernel_ports = {k: new_connection_data[k] for k in new_connection_data if '_port' in k}
-    print("Frontend Ports:", frontend_ports)
-    print("Kernel Ports:", kernel_ports)
+        # Output frontend and kernel ports information
+        frontend_ports = {k: original_connection_data[k] for k in new_connection_data if '_port' in k}
+        kernel_ports = {k: new_connection_data[k] for k in new_connection_data if '_port' in k}
 
-    ip = original_connection_data["ip"]
+        ip = original_connection_data["ip"]
 
-    proxy = JupyterKernelProxy(ip, frontend_ports, kernel_ports, inner_kernel_process)
-    proxy.start()
+        proxy = JupiterTinCanProxy(ip, frontend_ports, kernel_ports, inner_kernel_process)
+        proxy.start()
 
