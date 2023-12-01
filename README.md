@@ -9,3 +9,9 @@ This is where Jupyter-TinCan steps in. It's not just another security solution; 
 
 Say goodbye to the awkward dance of remote development. Jupyter-TinCan allows you to work with the familiarity and efficiency of your local environment while maintaining the security standards necessary for sensitive data. It's about keeping your workflow smooth and your data shielded – a harmony of security and usability.
 
+
+### Acknowledgments
+
+"Jupyter" and the Jupyter logos are trademarks of the NumFOCUS foundation. Our use of these trademarks does not imply any endorsement by Project Jupyter or NumFOCUS. Jupyter-TinCan is an independent project developed to integrate with Jupyter software.
+
+This project is not affiliated with Project Jupyter but is designed to be compatible with and enhance the Jupyter notebook experience.
