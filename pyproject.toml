@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "jupyter-tincan"
-version = "0.1.0"
+version = "0.1.1"
 description = ""
 authors = ["Roberto Abdelkader Martínez Pérez <robertomartinezp@gmail.com>"]
 readme = "README.md"
