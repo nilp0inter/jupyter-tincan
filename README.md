@@ -51,7 +51,9 @@ $ mkdir python3-tincan
 $ jupyter tincan create-kernel /usr/local/share/jupyter/kernels/python3 > python3-tincan/kernel.json
 ```
 
-This will create a new kernel spec file called `tincan-python3.json` in the directory `python3-tincan`. You can now install this kernel spec into Jupyter:
+This will create a new kernel spec file called `kernel.json` in the `python3-tincan` directory.
+
+You can now install this kernel spec into Jupyter:
 
 ```console
 $ jupyter kernelspec install python3-tincan
