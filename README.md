@@ -9,6 +9,16 @@ Jupyter-TinCan changes the game by offering a simpler, more intuitive solution. 
 
 ## Installation
 
+```console
+$ pip install jupyter-tincan
+```
+
+You also need nodejs and have text2svg available.
+
+```console
+$ npm install -g text2svg
+```
+
 ## Usage
 
 You can configure any pre-existing Jupyter kernel to use Jupyter-TinCan. First let's list the kernels we have installed:
