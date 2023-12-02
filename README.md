@@ -14,11 +14,11 @@ Here's a snapshot of Jupyter-TinCan in its element:
 <img src="https://github.com/nilp0inter/jupyter-tincan/blob/main/art/show.png?raw=true" align="center"
      alt="Jupyter-Tincan Showcase" width="100%">
 
-1. **Spot the TinCan** That tiny tin can icon next to the kernel name? That's your cue that Jupyter-TinCan is on duty, turning your notebook into a secure data haven.
+1. **Spot the TinCan**: That tiny tin can icon next to the kernel name? That's your cue that Jupyter-TinCan is on duty, turning your notebook into a secure data haven.
 
-2. **Data in Disguise** Check out the DataFrame output. It's not just plain data; it's been TinCanned into an image. Good luck trying to copy text from that – it's as secure as it looks.
+2. **Data in Disguise**: Check out the DataFrame output. It's not just plain data; it's been TinCanned into an image. Good luck trying to copy text from that – it's as secure as it looks.
 
-3. **Shell Outputs, Secured** Even the outputs from shell commands are getting the image treatment. The directory listing you see is now snapshot-secure, keeping your command line secrets just that – secret.
+3. **Shell Outputs, Secured**: Even the outputs from shell commands are getting the image treatment. The directory listing you see is now snapshot-secure, keeping your command line secrets just that – secret.
 
 With Jupyter-TinCan, your sensitive data stays under wraps, and your notebook remains as usable as ever. It's the kind of security that fits right into your workflow without a fuss.
 
