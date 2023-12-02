@@ -7,6 +7,21 @@ In the realm of data science and software development, safeguarding sensitive in
 
 Jupyter-TinCan changes the game by offering a simpler, more intuitive solution. It transforms sensitive text in notebook cells into images, maintaining data security while enhancing user experience. No more cumbersome setups or workflow disruptions – just smooth, secure, and efficient development.
 
+## What does it do?
+
+Here's a snapshot of Jupyter-TinCan in its element:
+
+<img src="https://github.com/nilp0inter/jupyter-tincan/blob/main/art/show.png?raw=true" align="center"
+     alt="Jupyter-Tincan Showcase" width="100%">
+
+1. **Spot the TinCan** That tiny tin can icon next to the kernel name? That's your cue that Jupyter-TinCan is on duty, turning your notebook into a secure data haven.
+
+2. **Data in Disguise** Check out the DataFrame output. It's not just plain data; it's been TinCanned into an image. Good luck trying to copy text from that – it's as secure as it looks.
+
+3. **Shell Outputs, Secured** Even the outputs from shell commands are getting the image treatment. The directory listing you see is now snapshot-secure, keeping your command line secrets just that – secret.
+
+With Jupyter-TinCan, your sensitive data stays under wraps, and your notebook remains as usable as ever. It's the kind of security that fits right into your workflow without a fuss.
+
 ## Installation
 
 ```console
@@ -48,20 +63,6 @@ or
 $ jupyter kernelspec install --user python3-tincan
 ```
 
-## What does it do?
-
-<img src="https://github.com/nilp0inter/jupyter-tincan/blob/main/art/show.png?raw=true" align="center"
-     alt="Jupyter-Tincan Showcase" width="100%">
-
-The screenshot above illustrates Jupyter-TinCan's unique approach to securing sensitive data within a JupyterLab environment:
-
-1. Identifiable TinCan Kernel: The kernel is adorned with a subtle tin can icon, signaling that Jupyter-TinCan is operational and safeguarding your notebook's output.
-
-2. Secure Output as Images: Outputs from Python code, like the pandas DataFrame shown, are converted into images. This ensures data confidentiality by preventing the text from being copied directly from the output cell.
-
-3. Shell Command Output Protection: Similarly, the results of shell commands are also rendered as images. What typically would be text output is now a secure image, encapsulating the information while preventing text selection.
-
-Through these measures, Jupyter-TinCan maintains the integrity of sensitive information by presenting it in a visual format that deters extraction or casual copying.
 
 ### Acknowledgments
 
