@@ -1,9 +1,11 @@
+import json
 import signal
 
 import zmq
 from tornado import ioloop
 from zmq.eventloop.zmqstream import ZMQStream
 
+from .html import HTML2SVG
 
 class JupiterTinCanProxy:
     def __init__(self, ip, frontend_ports, kernel_ports, inner_kernel_process):
@@ -14,6 +16,7 @@ class JupiterTinCanProxy:
         self.inner_kernel_process = inner_kernel_process
         self._setup_proxy_sockets()
         self._setup_proxy_streams()
+        self.html2svg = HTML2SVG()
 
     def _setup_proxy_sockets(self):
         # Shell and Control use ROUTER for frontend, DEALER for backend
@@ -107,7 +110,19 @@ class JupiterTinCanProxy:
         self.stdin_stream.send_multipart(msg)
 
     def _forward_to_frontend_iopub(self, msg):
-        print(f"F<P<K (IOPub) {msg}")
+        print(f"F<P<K (IOPub-pre) {msg}")
+        topic, delimiter, hmac_sig, header, parent, metadata, content = msg
+
+        content = json.loads(content.decode("utf-8"))
+        if content.get("data", {}).get("text/html", None):
+            content["data"]["text/html"] = self.html2svg(content["data"]["text/html"])
+        elif content.get("name", None) == "stdout":
+            content["text"] = "**censored (wip)**\n"
+        content = json.dumps(content).encode("utf-8")
+
+        msg = [topic, delimiter, hmac_sig, header, parent, metadata, content]
+        print(f"F<P<K (IOPub-post) {msg}")
+
         self.iopub_stream.send_multipart(msg)
 
     def _forward_to_frontend_hb(self, msg):
