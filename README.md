@@ -53,3 +53,7 @@ $ jupyter kernelspec install --user python3-tincan
 "Jupyter" and the Jupyter logos are trademarks of the NumFOCUS foundation. Our use of these trademarks does not imply any endorsement by Project Jupyter or NumFOCUS. Jupyter-TinCan is an independent project developed to integrate with Jupyter software.
 
 This project is not affiliated with Project Jupyter but is designed to be compatible with and enhance the Jupyter notebook experience.
+
+### Disclaimer
+
+Jupyter-TinCan is experimental software provided 'as-is' without any express or implied warranties. By using this software, users acknowledge the potential risks, such as data loss or incorrect data transformations, and agree to bear full responsibility for any consequences arising from its use. The developers are not liable for any damages or losses incurred from the software's operation or failure.
