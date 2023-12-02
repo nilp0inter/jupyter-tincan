@@ -117,7 +117,14 @@ class JupiterTinCanProxy:
         if content.get("data", {}).get("text/html", None):
             content["data"]["text/html"] = self.html2svg(content["data"]["text/html"])
         elif content.get("name", None) == "stdout":
-            content["text"] = "**censored (wip)**\n"
+            # Transform it to html
+            header = json.loads(header.decode("utf-8"))
+
+            topic = b'kernel.7bb092de-d50e-4272-ad08-bd952ad7b131.execute_result'
+            header["msg_type"] = "execute_result"
+            content = {"data": {"text/html": self.html2svg(content["text"]), "text/plain": "*stdout*"}, "metadata": {}, "execution_count": 1}
+
+            header = json.dumps(header).encode("utf-8")
         content = json.dumps(content).encode("utf-8")
 
         msg = [topic, delimiter, hmac_sig, header, parent, metadata, content]
