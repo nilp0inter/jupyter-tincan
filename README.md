@@ -48,6 +48,21 @@ or
 $ jupyter kernelspec install --user python3-tincan
 ```
 
+## What does it do?
+
+<img src="https://github.com/nilp0inter/jupyter-tincan/blob/main/art/show.png?raw=true" align="center"
+     alt="Jupyter-Tincan Showcase" width="100%">
+
+The screenshot above illustrates Jupyter-TinCan's unique approach to securing sensitive data within a JupyterLab environment:
+
+1. Identifiable TinCan Kernel: The kernel is adorned with a subtle tin can icon, signaling that Jupyter-TinCan is operational and safeguarding your notebook's output.
+
+2. Secure Output as Images: Outputs from Python code, like the pandas DataFrame shown, are converted into images. This ensures data confidentiality by preventing the text from being copied directly from the output cell.
+
+3. Shell Command Output Protection: Similarly, the results of shell commands are also rendered as images. What typically would be text output is now a secure image, encapsulating the information while preventing text selection.
+
+Through these measures, Jupyter-TinCan maintains the integrity of sensitive information by presenting it in a visual format that deters extraction or casual copying.
+
 ### Acknowledgments
 
 "Jupyter" and the Jupyter logos are trademarks of the NumFOCUS foundation. Our use of these trademarks does not imply any endorsement by Project Jupyter or NumFOCUS. Jupyter-TinCan is an independent project developed to integrate with Jupyter software.
